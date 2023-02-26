@@ -3,7 +3,6 @@ package com.ddi.corrutinas
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.SearchView
-import android.widget.SearchView.OnQueryTextListener
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ddi.corrutinas.databinding.ActivityMainBinding
@@ -12,7 +11,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.*
 
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     // Preparamos el viewBinding para enlazar las vistas al código
@@ -30,6 +28,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         initRecyclerView()
     }//onCreate
     private fun initRecyclerView() {
+        adapter = DogAdapter(dogImages)
         // Llamamos al binding del recyclerView
         binding.rvDogs.layoutManager = LinearLayoutManager(this)
         binding.rvDogs.adapter = adapter
@@ -87,7 +86,7 @@ para hacer la llamada del API.*/
         // Sí el texto que ha escrito el usuario no es vacío ni nulo:
         if (!query.isNullOrBlank()){
             // Llamamos a la función de busqueda.toLowerCawe pasando tod a minúscula
-            searchByName(query.toLowerCase())
+            searchByName(query.lowercase())
         }
         return true
     }//onQueryTextSubmit
